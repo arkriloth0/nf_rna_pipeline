@@ -98,15 +98,19 @@ workflow NF_RNA_PIPELINE {
         }
         .set { ch_trim_branch }
 
-    // Run FASTP on samples marked for trimming
+    // Run FASTP on samples marked for trimming (with conditional version/multiqc collection)
+    ch_trim_count = ch_trim_branch.trim.count()
+    
     FASTP(
         ch_trim_branch.trim,    // tuple val(meta), path(reads)
         [],                     // path adapter_fasta (empty = use default adapters)
         false,                  // val save_trimmed_fail
         false                   // val save_merged
     )
-    ch_versions      = ch_versions.mix(FASTP.out.versions.first())
-    ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect { it[1] })
+    
+    // Only collect versions and multiqc files if FASTP actually produced output
+    ch_versions      = ch_versions.mix(FASTP.out.versions.first().ifEmpty([]))
+    ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect { it[1] }.ifEmpty([]))
 
     // Merge trimmed and untrimmed channels back together for downstream steps
     ch_fastq_for_alignment = FASTP.out.reads
