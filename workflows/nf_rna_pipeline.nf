@@ -102,8 +102,7 @@ workflow NF_RNA_PIPELINE {
     ch_trim_count = ch_trim_branch.trim.count()
     
     FASTP(
-        ch_trim_branch.trim,    // tuple val(meta), path(reads)
-        [],                     // path adapter_fasta (empty = use default adapters)
+        ch_trim_branch.trim.map { meta, reads -> [ meta, reads, [] ] },  // tuple val(meta), path(reads), path(adapter_fasta)
         false,                  // val discard_trimmed_pass
         false,                  // val save_trimmed_fail
         false                   // val save_merged
@@ -154,7 +153,7 @@ workflow NF_RNA_PIPELINE {
     //
 
     // Compute reference directory
-    def reference_dir = params.reference_dir ?: (params.fasta ? file(params.fasta).parent : "${params.outdir}/references")
+    // def reference_dir = params.reference_dir ?: (params.fasta ? file(params.fasta).parent : "${params.outdir}/references")
 
     if (params.fasta) {
         ch_fasta = Channel.fromPath(params.fasta).map { [ [:], it ] }.first()
