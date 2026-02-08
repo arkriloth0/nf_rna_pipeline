@@ -104,6 +104,7 @@ workflow NF_RNA_PIPELINE {
     FASTP(
         ch_trim_branch.trim,    // tuple val(meta), path(reads)
         [],                     // path adapter_fasta (empty = use default adapters)
+        false,                  // val discard_trimmed_pass
         false,                  // val save_trimmed_fail
         false                   // val save_merged
     )
