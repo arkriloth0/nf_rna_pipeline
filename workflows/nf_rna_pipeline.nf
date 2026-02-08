@@ -93,7 +93,7 @@ workflow NF_RNA_PIPELINE {
     // Branch into samples that need trimming vs those that don't
     ch_fastq_grouped
         .branch { meta, reads ->
-            trim:    meta.trim == null || meta.trim == true || meta.trim == 'true'
+            trim:    meta.trim == null || meta.trim == true || meta.trim == 'TRUE' || meta.trim == 'true' || meta.trim == 'True'
             no_trim: true
         }
         .set { ch_trim_branch }
