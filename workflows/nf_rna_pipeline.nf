@@ -108,10 +108,7 @@ workflow NF_RNA_PIPELINE {
         false                   // val save_merged
     )
     
-    // Only collect versions and multiqc files if FASTP actually produced output
-    ch_versions = ch_versions.mix(
-        FASTP.out.versions.ifEmpty(Channel.empty()).first()
-    )
+    // Only collect multiqc files if FASTP actually produced output
     ch_multiqc_files = ch_multiqc_files.mix(
         FASTP.out.json.ifEmpty([]).collect { it[1] }
     )
