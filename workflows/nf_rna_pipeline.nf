@@ -109,8 +109,12 @@ workflow NF_RNA_PIPELINE {
     )
     
     // Only collect versions and multiqc files if FASTP actually produced output
-    ch_versions      = ch_versions.mix(FASTP.out.versions.first().ifEmpty([]))
-    ch_multiqc_files = ch_multiqc_files.mix(FASTP.out.json.collect { it[1] }.ifEmpty([]))
+    ch_versions = ch_versions.mix(
+        FASTP.out.versions.ifEmpty(Channel.empty()).first()
+    )
+    ch_multiqc_files = ch_multiqc_files.mix(
+        FASTP.out.json.ifEmpty([]).collect { it[1] }
+    )
 
     // Merge trimmed and untrimmed channels back together for downstream steps
     ch_fastq_for_alignment = FASTP.out.reads
