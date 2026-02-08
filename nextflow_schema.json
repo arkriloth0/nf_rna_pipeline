@@ -193,6 +193,13 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "default": "s3://ngi-igenomes/igenomes/"
+                },
+                "save_reference": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Save generated reference genome indices to the results directory.",
+                    "help_text": "If set to true, generated indices (FASTA index, sequence dictionary, STAR index, Salmon index) will be saved in the output directory for reuse in future runs. This can save time in subsequent pipeline executions but will increase storage requirements.",
+                    "fa_icon": "fas fa-save"
                 }
             }
         },

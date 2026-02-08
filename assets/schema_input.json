@@ -43,6 +43,12 @@
                 "minimum": 0,
                 "errorMessage": "fldSD must be a positive number representing the standard deviation of fragment length for single-end reads",
                 "meta": ["fldSD"]
+            }, 
+            "trim": {
+                "type": "boolean",
+                "default": true,
+                "description": "Whether to run FASTP trimming on this sample. Set to false to skip trimming.",
+                "errorMessage": "trim must be true or false"
             }
         },
         "required": ["sample"],
