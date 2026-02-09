@@ -65,6 +65,11 @@
                         "git_sha": "41dfa3f7c0ffabb96a6a813fe321c6d1cc5b6e46",
                         "installed_by": ["modules"]
                     },
+                    "umicollapse": {
+                        "branch": "master",
+                        "git_sha": "36b67c3f4b1cb390365f826bcf312424be25810a",
+                        "installed_by": ["modules"]
+                    },
                     "umitools/dedup": {
                         "branch": "master",
                         "git_sha": "a3c1fdaa26ab74f7c77fead65f0f6d34b0dc9d1d",
