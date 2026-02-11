@@ -46,7 +46,7 @@
             }, 
             "trim": {
                 "type": "boolean",
-                "default": true,
+                "default": false,
                 "description": "Whether to run FASTP trimming on this sample. Set to false to skip trimming.",
                 "errorMessage": "trim must be true or false",
                 "meta": ["trim"]
